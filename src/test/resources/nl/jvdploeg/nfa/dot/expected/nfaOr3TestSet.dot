@@ -1,0 +1,46 @@
+// File in graphviz .dot format
+// Example, create png file using: dot <filename> -Tpng -o out.png
+digraph nfa {
+rankdir=LR;
+s0;
+s1;
+s2;
+s3;
+s4;
+s5 [peripheries=2];
+s6;
+s7;
+s8;
+s9;
+_start_ [style=invis];
+_start_ -> s0
+s0 -> s1;
+s0 -> s8;
+s1 -> s2;
+s1 -> s6;
+s2 -> s3 [label="foo"];
+s3 -> s4;
+s4 -> s5;
+s6 -> s7 [label="bar"];
+s7 -> s4;
+s8 -> s9 [label="baz"];
+s9 -> s5;
+{
+rank = same;
+n0 [label="(foo)"][shape = box;];
+n1 [label="(bar)"][shape = box;];
+n2 [label="(baz)"][shape = box;];
+n3 [label="((foo))|((bar))"][shape = box;];
+n4 [label="(((foo))|((bar)))|((baz))"][shape = box;];
+};
+n0 -> s2 [label="entry"][style=dotted];
+n0 -> s3 [label="exit"][style=dotted];
+n1 -> s6 [label="entry"][style=dotted];
+n1 -> s7 [label="exit"][style=dotted];
+n2 -> s8 [label="entry"][style=dotted];
+n2 -> s9 [label="exit"][style=dotted];
+n3 -> s1 [label="entry"][style=dotted];
+n3 -> s4 [label="exit"][style=dotted];
+n4 -> s0 [label="entry"][style=dotted];
+n4 -> s5 [label="exit"][style=dotted];
+}

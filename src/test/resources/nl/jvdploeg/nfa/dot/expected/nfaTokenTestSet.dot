@@ -1,0 +1,16 @@
+// File in graphviz .dot format
+// Example, create png file using: dot <filename> -Tpng -o out.png
+digraph nfa {
+rankdir=LR;
+s0;
+s1 [peripheries=2];
+_start_ [style=invis];
+_start_ -> s0
+s0 -> s1 [label="foo"];
+{
+rank = same;
+n0 [label="(foo)"][shape = box;];
+};
+n0 -> s0 [label="entry"][style=dotted];
+n0 -> s1 [label="exit"][style=dotted];
+}
