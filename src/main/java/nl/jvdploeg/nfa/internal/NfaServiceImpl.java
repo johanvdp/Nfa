@@ -7,16 +7,16 @@ import nl.jvdploeg.nfa.StateNetwork;
 @SuppressWarnings("rawtypes")
 public class NfaServiceImpl extends NfaService {
 
-    public NfaServiceImpl() {
-    }
+  public NfaServiceImpl() {
+  }
 
-    @Override
-    public NfaFactory createNfaFactory() {
-        return new NfaFactoryImpl();
-    }
+  @Override
+  public NfaFactory createNfaFactory() {
+    return new NfaFactoryImpl();
+  }
 
-    @Override
-    public StateNetwork createStateNetwork() {
-        return new StateNetworkImpl();
-    }
+  @Override
+  public StateNetwork createStateNetwork() {
+    return new StateNetworkImpl();
+  }
 }

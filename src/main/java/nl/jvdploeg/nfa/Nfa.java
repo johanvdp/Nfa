@@ -3,11 +3,11 @@ package nl.jvdploeg.nfa;
 @SuppressWarnings("rawtypes")
 public interface Nfa<T extends State> extends TokenMatcher {
 
-    T getEntry();
+  T getEntry();
 
-    T getExit();
+  T getExit();
 
-    String getLabel();
+  String getLabel();
 
-    void setLabel(String label);
+  void setLabel(String label);
 }

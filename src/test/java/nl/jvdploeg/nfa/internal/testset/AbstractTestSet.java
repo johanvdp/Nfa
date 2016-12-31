@@ -5,14 +5,14 @@ import nl.jvdploeg.nfa.internal.NfaFactoryImpl;
 
 public abstract class AbstractTestSet implements TestSet {
 
-    protected final NfaFactoryImpl factory;
+  protected final NfaFactoryImpl factory;
 
-    public AbstractTestSet() {
-        factory = (NfaFactoryImpl) NfaService.getInstance().createNfaFactory();
-    }
+  public AbstractTestSet() {
+    factory = (NfaFactoryImpl) NfaService.getInstance().createNfaFactory();
+  }
 
-    @Override
-    public NfaFactoryImpl getFactory() {
-        return factory;
-    }
+  @Override
+  public NfaFactoryImpl getFactory() {
+    return factory;
+  }
 }

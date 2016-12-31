@@ -6,9 +6,9 @@ import nl.jvdploeg.nfa.internal.NfaImpl;
 
 public interface TestSet {
 
-    void assertTokenMatcher(TokenMatcher matcher);
+  void assertTokenMatcher(TokenMatcher matcher);
 
-    NfaImpl build();
+  NfaImpl build();
 
-    NfaFactoryImpl getFactory();
+  NfaFactoryImpl getFactory();
 }
