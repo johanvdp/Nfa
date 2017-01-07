@@ -1,14 +1,13 @@
 package nl.jvdploeg.nfa.internal;
 
+import java.util.ArrayList;
+import java.util.List;
 import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.NfaFactory;
 import nl.jvdploeg.nfa.TokenMatcher;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
 

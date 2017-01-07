@@ -1,17 +1,16 @@
 package nl.jvdploeg.nfa.dot;
 
+import java.io.IOException;
+import java.io.Writer;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.NfaFactory;
 import nl.jvdploeg.nfa.NfaService;
 import nl.jvdploeg.nfa.State;
 import nl.jvdploeg.nfa.StateNetwork;
 import org.apache.commons.lang3.StringEscapeUtils;
-
-import java.io.IOException;
-import java.io.Writer;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class DotBuilder implements AutoCloseable {

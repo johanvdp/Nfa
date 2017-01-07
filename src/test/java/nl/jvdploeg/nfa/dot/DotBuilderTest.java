@@ -1,5 +1,6 @@
 package nl.jvdploeg.nfa.dot;
 
+import java.io.IOException;
 import nl.jvdploeg.nfa.dot.expected.Expected;
 import nl.jvdploeg.nfa.internal.DfaImpl;
 import nl.jvdploeg.nfa.internal.NfaImpl;
@@ -7,8 +8,6 @@ import nl.jvdploeg.nfa.internal.testset.TestSet;
 import nl.jvdploeg.nfa.internal.testset.TestSets;
 import org.junit.Assert;
 import org.junit.Test;
-
-import java.io.IOException;
 
 public class DotBuilderTest {
 

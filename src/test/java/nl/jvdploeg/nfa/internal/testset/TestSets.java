@@ -2,6 +2,9 @@ package nl.jvdploeg.nfa.internal.testset;
 
 public abstract class TestSets {
 
+  /**
+   * Create all {@link TestSet}s.
+   */
   public static final TestSet[] create() {
     return new TestSet[] { //
         new AnyTestSet(), //

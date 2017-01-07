@@ -1,10 +1,9 @@
 package nl.jvdploeg.nfa.internal.testset;
 
+import java.util.Arrays;
 import nl.jvdploeg.nfa.TokenMatcher;
 import nl.jvdploeg.nfa.internal.NfaImpl;
 import org.junit.Assert;
-
-import java.util.Arrays;
 
 public class FooZeroOrMoreAnyFooTestSet extends AbstractTestSet {
 

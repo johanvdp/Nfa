@@ -1,14 +1,13 @@
 package nl.jvdploeg.nfa.internal;
 
-import nl.jvdploeg.nfa.State;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import nl.jvdploeg.nfa.State;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * A {@link State} has (outgoing only) transitions to other {@link State}s.<br>
@@ -148,6 +147,12 @@ public final class StateImpl implements State<StateImpl> {
     return match(tokens, 0, new ArrayList<StateImpl>());
   }
 
+  /**
+   * Remove the 'any' token transion.
+   * 
+   * @param state
+   *          The target state.
+   */
   public void removeAnyTokenTransition(final StateImpl state) {
     final boolean removed = anyTokenTransitions.remove(state);
     if (!removed) {
@@ -155,6 +160,12 @@ public final class StateImpl implements State<StateImpl> {
     }
   }
 
+  /**
+   * Remove the 'empty' transion.
+   * 
+   * @param state
+   *          The target state.
+   */
   public void removeEmptyTransition(final StateImpl state) {
     final boolean removed = emptyTransitions.remove(state);
     if (!removed) {
@@ -162,6 +173,14 @@ public final class StateImpl implements State<StateImpl> {
     }
   }
 
+  /**
+   * Remove the token transition.
+   * 
+   * @param token
+   *          The token.
+   * @param state
+   *          The target state.
+   */
   public void removeTokenTransition(final String token, final StateImpl state) {
     final List<StateImpl> transitions = tokenTransitions.get(token);
     if (transitions == null) {

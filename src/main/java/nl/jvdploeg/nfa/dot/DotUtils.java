@@ -1,12 +1,11 @@
 package nl.jvdploeg.nfa.dot;
 
-import nl.jvdploeg.nfa.Nfa;
-import nl.jvdploeg.nfa.NfaFactory;
-import nl.jvdploeg.nfa.State;
-
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.StringWriter;
+import nl.jvdploeg.nfa.Nfa;
+import nl.jvdploeg.nfa.NfaFactory;
+import nl.jvdploeg.nfa.State;
 
 @SuppressWarnings("rawtypes")
 public abstract class DotUtils {

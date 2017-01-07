@@ -1,11 +1,10 @@
 package nl.jvdploeg.nfa.internal;
 
+import java.io.IOException;
 import nl.jvdploeg.nfa.dot.DotUtils;
 import nl.jvdploeg.nfa.internal.testset.TestSet;
 import nl.jvdploeg.nfa.internal.testset.TestSets;
 import org.junit.Test;
-
-import java.io.IOException;
 
 public class DfaImplTest {
 

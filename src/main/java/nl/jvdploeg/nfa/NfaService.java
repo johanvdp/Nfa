@@ -4,11 +4,19 @@ import java.util.Iterator;
 import java.util.ServiceConfigurationError;
 import java.util.ServiceLoader;
 
+/**
+ * META-INF/services/{@link nl.jvdploeg.nfa.NfaService} access.
+ */
 @SuppressWarnings("rawtypes")
 public abstract class NfaService {
 
   private static NfaService service;
 
+  /**
+   * Access singleton instance.
+   * 
+   * @return The singleton instance.
+   */
   public static final synchronized NfaService getInstance() {
     if (service == null) {
       final ServiceLoader<NfaService> loader = ServiceLoader.load(NfaService.class);

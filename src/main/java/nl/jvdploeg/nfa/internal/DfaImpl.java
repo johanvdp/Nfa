@@ -1,15 +1,14 @@
 package nl.jvdploeg.nfa.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.State;
 import nl.jvdploeg.nfa.TokenMatcher;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Map.Entry;
 
 /**
  * Deterministic finite automaton.

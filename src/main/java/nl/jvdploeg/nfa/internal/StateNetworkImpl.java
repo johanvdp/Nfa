@@ -1,17 +1,16 @@
 package nl.jvdploeg.nfa.internal;
 
-import nl.jvdploeg.nfa.State;
-import nl.jvdploeg.nfa.StateNetwork;
-import org.apache.commons.lang3.tuple.Pair;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
+import nl.jvdploeg.nfa.State;
+import nl.jvdploeg.nfa.StateNetwork;
+import org.apache.commons.lang3.tuple.Pair;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 /**
  * Network of {@link State}s.
