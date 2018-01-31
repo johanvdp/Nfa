@@ -1,9 +1,10 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.dot;
 
 import java.io.IOException;
 import java.io.Writer;
 
-public class TestWriter extends Writer {
+public final class TestWriter extends Writer {
 
   private boolean closed;
 

@@ -1,31 +1,31 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal;
 
 import java.util.ArrayList;
 import java.util.List;
-import nl.jvdploeg.nfa.Nfa;
-import nl.jvdploeg.nfa.NfaFactory;
-import nl.jvdploeg.nfa.TokenMatcher;
+
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
+import nl.jvdploeg.nfa.NfaFactory;
+import nl.jvdploeg.nfa.TokenMatcher;
+
+public final class NfaFactoryImpl implements NfaFactory<NfaImpl> {
 
   private static final Logger LOG = LoggerFactory.getLogger(NfaFactoryImpl.class);
 
-  /**
-   * Remember all created {@link Nfa}s.
-   */
+  /** Remember all created Nfas. */
   private final List<NfaImpl> nfas = new ArrayList<>();
 
   public NfaFactoryImpl() {
   }
 
   /**
-   * Create an {@link Nfa} which matches any token.
+   * Create an Nfa which matches any token.
    */
   @Override
-  public final NfaImpl any() {
+  public NfaImpl any() {
     // new states
     final StateImpl entry = new StateImpl();
     final StateImpl exit = new StateImpl();
@@ -37,10 +37,10 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
   }
 
   /**
-   * Create an {@link Nfa} which matches no token.
+   * Create an Nfa which matches no token.
    */
   @Override
-  public final NfaImpl empty() {
+  public NfaImpl empty() {
     // take shortcut, no need for empty transition between two states
     final StateImpl empty = new StateImpl();
     empty.setEnd(true);
@@ -48,7 +48,7 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
   }
 
   /**
-   * Access all {@link Nfa}s created by this factory.
+   * Access all Nfas created by this factory.
    */
   @Override
   public List<NfaImpl> getNfas() {
@@ -63,10 +63,10 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
   }
 
   /**
-   * Create an {@link Nfa} that matches one of the provided {@link Nfa}s.
+   * Create an Nfa that matches one of the provided Nfas.
    */
   @Override
-  public final NfaImpl or(final List<NfaImpl> elements) {
+  public NfaImpl or(final List<NfaImpl> elements) {
     // at least one element
     NfaImpl or = elements.get(0);
     for (int i = 1; i < elements.size(); i++) {
@@ -76,10 +76,10 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
   }
 
   /**
-   * Create an {@link Nfa} that matches either provided {@link Nfa}s.
+   * Create an Nfa that matches either provided Nfas.
    */
   @Override
-  public final NfaImpl or(final NfaImpl one, final NfaImpl other) {
+  public NfaImpl or(final NfaImpl one, final NfaImpl other) {
     // existing states
     final StateImpl oneEntry = one.getEntry();
     final StateImpl oneExit = one.getExit();
@@ -101,10 +101,10 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
   }
 
   /**
-   * Create an {@link Nfa} that matches a sequence of multiple {@link Nfa}s.
+   * Create an Nfa that matches a sequence of multiple Nfas.
    */
   @Override
-  public final NfaImpl sequence(final List<NfaImpl> elements) {
+  public NfaImpl sequence(final List<NfaImpl> elements) {
     // at least one element
     NfaImpl sequence = elements.get(0);
     for (int i = 1; i < elements.size(); i++) {
@@ -114,10 +114,10 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
   }
 
   /**
-   * Create an {@link Nfa} that matches a sequence of two {@link Nfa}.
+   * Create an Nfa that matches a sequence of two Nfa.
    */
   @Override
-  public final NfaImpl sequence(final NfaImpl first, final NfaImpl second) {
+  public NfaImpl sequence(final NfaImpl first, final NfaImpl second) {
     // existing states
     final StateImpl firstEntry = first.getEntry();
     final StateImpl firstExit = first.getExit();
@@ -128,15 +128,14 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
     // mark end state
     firstExit.setEnd(false);
     secondExit.setEnd(true);
-    return create(String.format("(%1$s)(%2$s)", first.getLabel(), second.getLabel()), firstEntry,
-        secondExit);
+    return create(String.format("(%1$s)(%2$s)", first.getLabel(), second.getLabel()), firstEntry, secondExit);
   }
 
   /**
-   * Create an {@link Nfa} which matches the specified token.
+   * Create an Nfa which matches the specified token.
    */
   @Override
-  public final NfaImpl token(final String token) {
+  public NfaImpl token(final String token) {
     // new states
     final StateImpl entry = new StateImpl();
     final StateImpl exit = new StateImpl();
@@ -148,10 +147,10 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
   }
 
   /**
-   * Create an {@link Nfa} which matches zero or more repetitions of the given {@link Nfa}.
+   * Create an Nfa which matches zero or more repetitions of the given Nfa.
    */
   @Override
-  public final NfaImpl zeroOrMore(final NfaImpl nfa) {
+  public NfaImpl zeroOrMore(final NfaImpl nfa) {
     // do not generate new states but take a shortcut
     // directly connect entry and exit state
     final String label = nfa.getLabel();
@@ -166,9 +165,7 @@ public class NfaFactoryImpl implements NfaFactory<NfaImpl> {
     return nfa;
   }
 
-  /**
-   * Create an {@link Nfa} and remember it.
-   */
+  /** Create an Nfa and remember it. */
   private NfaImpl create(final String label, final StateImpl entry, final StateImpl exit) {
     LOG.debug("create {}", label);
     final NfaImpl nfa = new NfaImpl(entry, exit);

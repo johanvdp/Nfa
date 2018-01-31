@@ -1,13 +1,16 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.dot;
 
 import java.io.IOException;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import nl.jvdploeg.nfa.dot.expected.Expected;
 import nl.jvdploeg.nfa.internal.DfaImpl;
 import nl.jvdploeg.nfa.internal.NfaImpl;
 import nl.jvdploeg.nfa.internal.testset.TestSet;
 import nl.jvdploeg.nfa.internal.testset.TestSets;
-import org.junit.Assert;
-import org.junit.Test;
 
 public class DotBuilderTest {
 
@@ -17,8 +20,7 @@ public class DotBuilderTest {
     for (final TestSet testSet : TestSets.create()) {
       final NfaImpl nfa = testSet.build();
 
-      DotUtils.write(nfa.getEntry(), testSet.getFactory(),
-          String.format("target/nfa%s.dot", testSet.getClass().getSimpleName()));
+      DotUtils.write(nfa.getEntry(), testSet.getFactory(), String.format("generated/nfa%s.dot", testSet.getClass().getSimpleName()));
     }
   }
 
@@ -29,17 +31,18 @@ public class DotBuilderTest {
       final NfaImpl nfa = testSet.build();
       final DfaImpl dfa = DfaImpl.createOptimized(nfa);
 
-      DotUtils.write(dfa.getEntry(),
-          String.format("target/dfa%s.dot", testSet.getClass().getSimpleName()));
+      DotUtils.write(dfa.getEntry(), String.format("generated/dfa%s.dot", testSet.getClass().getSimpleName()));
     }
   }
 
   @Test
   public void testAutoClosable() throws IOException {
 
+    @SuppressWarnings("resource")
+    // DotBuilder AutoCloseable TestWriter
     final TestWriter testWriter = new TestWriter();
     try (DotBuilder builder = new DotBuilder(testWriter, null, null)) {
-      // nothing
+      nothing();
     }
 
     Assert.assertTrue(testWriter.isClosed());
@@ -51,8 +54,7 @@ public class DotBuilderTest {
     for (final TestSet testSet : TestSets.create()) {
       final NfaImpl nfa = testSet.build();
 
-      Assert.assertEquals(Expected.getExpectedNfa(testSet),
-          DotUtils.toDot(nfa.getEntry(), testSet.getFactory()));
+      Assert.assertEquals(Expected.getExpectedNfa(testSet), DotUtils.toDot(nfa.getEntry(), testSet.getFactory()));
     }
   }
 
@@ -65,5 +67,9 @@ public class DotBuilderTest {
 
       Assert.assertEquals(Expected.getExpectedDfa(testSet), DotUtils.toDot(dfa.getEntry()));
     }
+  }
+
+  private void nothing() {
+    // avoid checkstyle errors
   }
 }

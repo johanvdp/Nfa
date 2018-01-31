@@ -1,10 +1,12 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal.testset;
+
+import org.junit.Assert;
 
 import nl.jvdploeg.nfa.TokenMatcher;
 import nl.jvdploeg.nfa.internal.NfaImpl;
-import org.junit.Assert;
 
-public class TokenTestSet extends AbstractTestSet {
+public final class TokenTestSet extends AbstractTestSet {
 
   public TokenTestSet() {
   }
@@ -22,6 +24,6 @@ public class TokenTestSet extends AbstractTestSet {
   @Override
   public NfaImpl build() {
 
-    return factory.token("foo");
+    return getFactory().token("foo");
   }
 }

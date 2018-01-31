@@ -1,11 +1,14 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal.testset;
 
 import java.util.Arrays;
-import nl.jvdploeg.nfa.TokenMatcher;
-import nl.jvdploeg.nfa.internal.NfaImpl;
+
 import org.junit.Assert;
 
-public class Sequence3TestSet extends AbstractTestSet {
+import nl.jvdploeg.nfa.TokenMatcher;
+import nl.jvdploeg.nfa.internal.NfaImpl;
+
+public final class Sequence3TestSet extends AbstractTestSet {
 
   public Sequence3TestSet() {
   }
@@ -25,7 +28,6 @@ public class Sequence3TestSet extends AbstractTestSet {
   @Override
   public NfaImpl build() {
 
-    return factory
-        .sequence(Arrays.asList(factory.token("foo"), factory.token("bar"), factory.token("baz")));
+    return getFactory().sequence(Arrays.asList(getFactory().token("foo"), getFactory().token("bar"), getFactory().token("baz")));
   }
 }

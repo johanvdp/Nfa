@@ -1,3 +1,4 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal.testset;
 
 import nl.jvdploeg.nfa.NfaService;
@@ -5,14 +6,14 @@ import nl.jvdploeg.nfa.internal.NfaFactoryImpl;
 
 public abstract class AbstractTestSet implements TestSet {
 
-  protected final NfaFactoryImpl factory;
+  private final NfaFactoryImpl factory;
 
-  public AbstractTestSet() {
+  protected AbstractTestSet() {
     factory = (NfaFactoryImpl) NfaService.getInstance().createNfaFactory();
   }
 
   @Override
-  public NfaFactoryImpl getFactory() {
+  public final NfaFactoryImpl getFactory() {
     return factory;
   }
 }

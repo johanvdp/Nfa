@@ -1,23 +1,23 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa;
 
-import nl.jvdploeg.nfa.internal.NfaFactoryImpl;
-import nl.jvdploeg.nfa.internal.NfaServiceImpl;
-import nl.jvdploeg.nfa.internal.StateNetworkImpl;
 import org.junit.Assert;
 import org.junit.Test;
+
+import nl.jvdploeg.nfa.internal.NfaServiceImpl;
 
 public class NfaServiceTest {
 
   @Test
   public void testCreateNfaFactory() {
 
-    Assert.assertTrue(NfaService.getInstance().createNfaFactory() instanceof NfaFactoryImpl);
+    Assert.assertNotNull(NfaService.getInstance().createNfaFactory());
   }
 
   @Test
   public void testCreateStateNetwork() {
 
-    Assert.assertTrue(NfaService.getInstance().createStateNetwork() instanceof StateNetworkImpl);
+    Assert.assertNotNull(NfaService.getInstance().createStateNetwork());
   }
 
   @Test

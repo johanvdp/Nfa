@@ -1,24 +1,26 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
-import nl.jvdploeg.nfa.Nfa;
-import nl.jvdploeg.nfa.State;
-import nl.jvdploeg.nfa.TokenMatcher;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import nl.jvdploeg.nfa.State;
+import nl.jvdploeg.nfa.TokenMatcher;
 
 /**
  * Deterministic finite automaton.
  */
-public class DfaImpl implements TokenMatcher {
+public final class DfaImpl implements TokenMatcher {
 
   private static final Logger LOG = LoggerFactory.getLogger(DfaImpl.class);
 
   /**
-   * Create a {@link DfaImpl} from a {@link Nfa}.
+   * Create a {@link DfaImpl} from a Nfa.
    */
   public static DfaImpl createOptimized(final NfaImpl nfa) {
     LOG.debug("createOptimized");
@@ -28,14 +30,13 @@ public class DfaImpl implements TokenMatcher {
     boolean moreOptimal;
     do {
       moreOptimal = dfa.optimize();
-    }
-    while (moreOptimal);
+    } while (moreOptimal);
 
     return dfa;
   }
 
   /**
-   * Create a {@link DfaImpl} from a {@link Nfa}.
+   * Create a {@link DfaImpl} from a Nfa.
    */
   public static DfaImpl createUnoptimized(final NfaImpl nfa) {
     LOG.debug("createUnoptimized");
@@ -46,11 +47,10 @@ public class DfaImpl implements TokenMatcher {
   /**
    * Collapse two states. State keep will remain.
    */
-  private static void collapse(final StateNetworkImpl network, final StateImpl keep,
-      final StateImpl remove) {
+  private static void collapse(final StateNetworkImpl network, final StateImpl keep, final StateImpl remove) {
     if (LOG.isDebugEnabled()) {
-      LOG.debug("collapse keep {} remove {}", network.getStates().indexOf(keep),
-          network.getStates().indexOf(remove));
+      LOG.debug("collapse keep {} remove {}", Integer.valueOf(network.getStates().indexOf(keep)),
+          Integer.valueOf(network.getStates().indexOf(remove)));
     }
 
     // keep will be an end state if remove can reach an end state without
@@ -80,8 +80,7 @@ public class DfaImpl implements TokenMatcher {
   /**
    * Any token transitions from any state to remove will be redirected to keep.
    */
-  private static void collapseAnyTokenTransitions(final StateImpl state, final StateImpl keep,
-      final StateImpl remove) {
+  private static void collapseAnyTokenTransitions(final StateImpl state, final StateImpl keep, final StateImpl remove) {
     final List<StateImpl> anyTokenTransitions = new ArrayList<>(state.getAnyTokenTransitions());
     final List<StateImpl> newAnyTokenTransitions = new ArrayList<>();
     for (final StateImpl anyTokenState : anyTokenTransitions) {
@@ -98,11 +97,10 @@ public class DfaImpl implements TokenMatcher {
   }
 
   /**
-   * Empty transitions from any state to remove will be redirected to keep. Except empty transitions
-   * from keep.
+   * Empty transitions from any state to remove will be redirected to keep.
+   * Except empty transitions from keep.
    */
-  private static void collapseEmptyTransitions(final StateImpl state, final StateImpl keep,
-      final StateImpl remove) {
+  private static void collapseEmptyTransitions(final StateImpl state, final StateImpl keep, final StateImpl remove) {
     final List<StateImpl> emptyTransitions = new ArrayList<>(state.getEmptyTransitions());
     final List<StateImpl> newEmptyTransitions = new ArrayList<>();
     for (final StateImpl emptyState : emptyTransitions) {
@@ -121,8 +119,7 @@ public class DfaImpl implements TokenMatcher {
   /**
    * Token transitions from any state to remove will be redirected to keep.
    */
-  private static void collapseTokenTransitions(final StateImpl state, final StateImpl keep,
-      final StateImpl remove) {
+  private static void collapseTokenTransitions(final StateImpl state, final StateImpl keep, final StateImpl remove) {
     final List<StateImpl> newTokenTransitions = new ArrayList<>();
     final Map<String, List<StateImpl>> tokenTransitions = state.getTokenTransitions();
     for (final Entry<String, List<StateImpl>> transitions : tokenTransitions.entrySet()) {
@@ -184,7 +181,8 @@ public class DfaImpl implements TokenMatcher {
   }
 
   /**
-   * Scan the network and collapse two states that have only empty transitions to each other.
+   * Scan the network and collapse two states that have only empty transitions
+   * to each other.
    *
    * @return True if more optimal.
    */
@@ -196,8 +194,7 @@ public class DfaImpl implements TokenMatcher {
     for (final StateImpl state : states) {
       final List<StateImpl> emptyTransitions = state.getEmptyTransitions();
       for (final StateImpl nextState : emptyTransitions) {
-        if (!network.isTokenTransition(state, nextState)
-            && !network.isTokenTransition(nextState, state)) {
+        if (!network.isTokenTransition(state, nextState) && !network.isTokenTransition(nextState, state)) {
           collapse(network, state, nextState);
           return true;
         }

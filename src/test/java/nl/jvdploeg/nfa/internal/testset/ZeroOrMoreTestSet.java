@@ -1,10 +1,12 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal.testset;
+
+import org.junit.Assert;
 
 import nl.jvdploeg.nfa.TokenMatcher;
 import nl.jvdploeg.nfa.internal.NfaImpl;
-import org.junit.Assert;
 
-public class ZeroOrMoreTestSet extends AbstractTestSet {
+public final class ZeroOrMoreTestSet extends AbstractTestSet {
 
   public ZeroOrMoreTestSet() {
   }
@@ -22,6 +24,6 @@ public class ZeroOrMoreTestSet extends AbstractTestSet {
   @Override
   public NfaImpl build() {
 
-    return factory.zeroOrMore(factory.token("foo"));
+    return getFactory().zeroOrMore(getFactory().token("foo"));
   }
 }

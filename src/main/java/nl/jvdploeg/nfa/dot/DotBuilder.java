@@ -1,3 +1,4 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.dot;
 
 import java.io.IOException;
@@ -5,24 +6,26 @@ import java.io.Writer;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.apache.commons.text.StringEscapeUtils;
+
 import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.NfaFactory;
 import nl.jvdploeg.nfa.NfaService;
 import nl.jvdploeg.nfa.State;
 import nl.jvdploeg.nfa.StateNetwork;
-import org.apache.commons.lang3.StringEscapeUtils;
 
 @SuppressWarnings({ "rawtypes", "unchecked" })
-public class DotBuilder implements AutoCloseable {
+public final class DotBuilder implements AutoCloseable {
 
   private Writer out;
   private final State entry;
   private final NfaFactory<Nfa<State>> factory;
-  private StateNetwork<State> network;
+  private StateNetwork<State<?>> network;
 
   /**
-   * Start building dot representation of the {@link State} network, including {@link Nfa} nodes
-   * when provided.
+   * Start building dot representation of the {@link State} network, including
+   * {@link Nfa} nodes when provided.
    *
    * @param out
    *          The output.
@@ -30,7 +33,6 @@ public class DotBuilder implements AutoCloseable {
    *          The entry of the network.
    * @param factory
    *          The factory that created the network or <code>null</code>.
-   *
    */
   public DotBuilder(final Writer out, final State entry, final NfaFactory factory) {
     this.out = out;
@@ -43,26 +45,24 @@ public class DotBuilder implements AutoCloseable {
     if (out != null) {
       try {
         out.close();
-      } catch (final IOException ex) {
-        // best effort
+      } catch (final IOException e) {
         out = null;
       }
     }
   }
 
   /**
-   * Create dot representation of the {@link State} network, including {@link Nfa} nodes when
-   * provided.<br>
+   * Create dot representation of the {@link State} network, including
+   * {@link Nfa} nodes when provided.<br>
    *
    * @throws IOException
    *           On error.
-   *
    * @see http://www.graphviz.org
    * @see http://graphviz.org/Documentation/dotguide.pdf
    */
   public void write() throws IOException {
 
-    network = NfaService.getInstance().createStateNetwork();
+    network = (StateNetwork<State<?>>) NfaService.getInstance().createStateNetwork();
     network.scan(entry);
 
     writeDotHeader();
@@ -93,14 +93,14 @@ public class DotBuilder implements AutoCloseable {
    * The {@link Nfa} name is a sequence number.
    */
   private String getNfaName(final Nfa nfa) {
-    return String.format("n%d", factory.getNfas().indexOf(nfa));
+    return String.format("n%d", Integer.valueOf(factory.getNfas().indexOf(nfa)));
   }
 
   /**
    * The {@link State} name is a sequence number.
    */
-  private String getStateName(final State<?> entry) {
-    return String.format("s%d", network.getStates().indexOf(entry));
+  private String getStateName(final State<?> theEntry) {
+    return String.format("s%d", Integer.valueOf(network.getStates().indexOf(theEntry)));
   }
 
   private void writeDotFooter() throws IOException {
@@ -147,10 +147,8 @@ public class DotBuilder implements AutoCloseable {
   private void writeNfaToStateLinks() throws IOException {
     // show nfa node to state links
     for (final Nfa<State> nfa : factory.getNfas()) {
-      out.write(getNfaName(nfa) + " -> " + getStateName(nfa.getEntry())
-          + " [label=\"entry\"][style=dotted];\n");
-      out.write(getNfaName(nfa) + " -> " + getStateName(nfa.getExit())
-          + " [label=\"exit\"][style=dotted];\n");
+      out.write(getNfaName(nfa) + " -> " + getStateName(nfa.getEntry()) + " [label=\"entry\"][style=dotted];\n");
+      out.write(getNfaName(nfa) + " -> " + getStateName(nfa.getExit()) + " [label=\"exit\"][style=dotted];\n");
     }
   }
 
@@ -201,8 +199,7 @@ public class DotBuilder implements AutoCloseable {
       final String token = transitions.getKey();
       final List<State> nextStates = transitions.getValue();
       for (final State nextState : nextStates) {
-        out.write(getStateName(state) + " -> " + getStateName(nextState) + " [label=\"" + token
-            + "\"];\n");
+        out.write(getStateName(state) + " -> " + getStateName(nextState) + " [label=\"" + token + "\"];\n");
       }
     }
   }

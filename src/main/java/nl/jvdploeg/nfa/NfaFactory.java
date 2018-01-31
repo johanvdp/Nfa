@@ -1,3 +1,4 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa;
 
 import java.util.List;
@@ -23,35 +24,36 @@ public interface NfaFactory<T extends Nfa<? extends State>> {
   /**
    * Create an {@link TokenMatcher} implementing the given {@link Nfa}.
    */
-  TokenMatcher optimize(final T nfa);
+  TokenMatcher optimize(T nfa);
 
   /**
    * Create an {@link Nfa} that matches one of the provided {@link Nfa}s.
    */
-  T or(final List<T> elements);
+  T or(List<T> elements);
 
   /**
    * Create an {@link Nfa} that matches either provided {@link Nfa}s.
    */
-  T or(final T one, final T other);
+  T or(T one, T other);
 
   /**
    * Create an {@link Nfa} that matches a sequence of multiple {@link Nfa}s.
    */
-  T sequence(final List<T> elements);
+  T sequence(List<T> elements);
 
   /**
    * Create an {@link Nfa} that matches a sequence of two {@link Nfa}.
    */
-  T sequence(final T first, final T second);
+  T sequence(T first, T second);
 
   /**
    * Create an {@link Nfa} which matches the specified token.
    */
-  T token(final String token);
+  T token(String token);
 
   /**
-   * Create an {@link Nfa} which matches zero or more repetitions of the given {@link Nfa}.
+   * Create an {@link Nfa} which matches zero or more repetitions of the given
+   * {@link Nfa}.
    */
-  T zeroOrMore(final T nfa);
+  T zeroOrMore(T nfa);
 }

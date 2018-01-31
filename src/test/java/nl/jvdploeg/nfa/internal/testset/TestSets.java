@@ -1,11 +1,9 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal.testset;
 
 public abstract class TestSets {
 
-  /**
-   * Create all {@link TestSet}s.
-   */
-  public static final TestSet[] create() {
+  public static TestSet[] create() {
     return new TestSet[] { //
         new AnyTestSet(), //
         new ComboTestSet(), //

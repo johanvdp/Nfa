@@ -1,10 +1,13 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal;
 
 import java.io.IOException;
+
+import org.junit.Test;
+
 import nl.jvdploeg.nfa.dot.DotUtils;
 import nl.jvdploeg.nfa.internal.testset.TestSet;
 import nl.jvdploeg.nfa.internal.testset.TestSets;
-import org.junit.Test;
 
 public class DfaImplTest {
 
@@ -20,14 +23,12 @@ public class DfaImplTest {
         moreOptimal = dfa.optimize();
         if (moreOptimal) {
 
-          DotUtils.write(dfa.getEntry(),
-              String.format("target/dfa%s%d.dot", testSet.getClass().getSimpleName(), iteration));
+          DotUtils.write(dfa.getEntry(), String.format("generated/dfa%s%d.dot", testSet.getClass().getSimpleName(), Integer.valueOf(iteration)));
 
           testSet.assertTokenMatcher(dfa);
           iteration++;
         }
-      }
-      while (moreOptimal);
+      } while (moreOptimal);
     }
   }
 

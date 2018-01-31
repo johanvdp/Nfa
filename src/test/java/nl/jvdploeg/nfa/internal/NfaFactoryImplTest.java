@@ -1,10 +1,13 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal;
 
 import java.io.IOException;
+
+import org.junit.Test;
+
 import nl.jvdploeg.nfa.TokenMatcher;
 import nl.jvdploeg.nfa.internal.testset.TestSet;
 import nl.jvdploeg.nfa.internal.testset.TestSets;
-import org.junit.Test;
 
 public class NfaFactoryImplTest {
 

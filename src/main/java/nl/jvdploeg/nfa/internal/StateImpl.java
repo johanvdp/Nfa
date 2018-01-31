@@ -1,3 +1,4 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal;
 
 import java.util.ArrayList;
@@ -5,9 +6,11 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import nl.jvdploeg.nfa.State;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import nl.jvdploeg.nfa.State;
 
 /**
  * A {@link State} has (outgoing only) transitions to other {@link State}s.<br>
@@ -21,8 +24,7 @@ public final class StateImpl implements State<StateImpl> {
 
   private static final Logger LOG = LoggerFactory.getLogger(StateImpl.class);
 
-  private static boolean isEndReachableFromState(final StateImpl state,
-      final List<StateImpl> visited) {
+  private static boolean isEndReachableFromState(final StateImpl state, final List<StateImpl> visited) {
     visited.add(state);
     if (state.isEnd()) {
       return true;
@@ -40,19 +42,16 @@ public final class StateImpl implements State<StateImpl> {
 
   /** List of transitions where no token is consumed. */
   private final List<StateImpl> emptyTransitions = new ArrayList<>();
-  private final List<StateImpl> unmodifiableEmptyTransitions = Collections
-      .unmodifiableList(emptyTransitions);
+  private final List<StateImpl> unmodifiableEmptyTransitions = Collections.unmodifiableList(emptyTransitions);
   /** List of transitions allowing any token (the token is consumed). */
   private final List<StateImpl> anyTokenTransitions = new ArrayList<>();
-  private final List<StateImpl> unmodifiableAnyTokenTransitions = Collections
-      .unmodifiableList(anyTokenTransitions);
+  private final List<StateImpl> unmodifiableAnyTokenTransitions = Collections.unmodifiableList(anyTokenTransitions);
   /** Marks this state as an end state. */
   private boolean end;
 
   /** List of transitions per token (the token is consumed). */
   private final Map<String, List<StateImpl>> tokenTransitions = new HashMap<>();
-  private final Map<String, List<StateImpl>> unmodifiableTokenTransitions = Collections
-      .unmodifiableMap(tokenTransitions);
+  private final Map<String, List<StateImpl>> unmodifiableTokenTransitions = Collections.unmodifiableMap(tokenTransitions);
 
   /**
    * Internal use only.
@@ -63,7 +62,8 @@ public final class StateImpl implements State<StateImpl> {
   }
 
   /**
-   * Add a transition from this state to next which allows and consumes any token.
+   * Add a transition from this state to next which allows and consumes any
+   * token.
    */
   public void addAnyTokenTransition(final StateImpl next) {
     if (!anyTokenTransitions.contains(next)) {
@@ -76,7 +76,8 @@ public final class StateImpl implements State<StateImpl> {
   }
 
   /**
-   * Add an empty transition from this state to next that does not consume a token.
+   * Add an empty transition from this state to next that does not consume a
+   * token.
    */
   public void addEmptyTransition(final StateImpl next) {
     if (!emptyTransitions.contains(next)) {
@@ -147,12 +148,6 @@ public final class StateImpl implements State<StateImpl> {
     return match(tokens, 0, new ArrayList<StateImpl>());
   }
 
-  /**
-   * Remove the 'any' token transion.
-   * 
-   * @param state
-   *          The target state.
-   */
   public void removeAnyTokenTransition(final StateImpl state) {
     final boolean removed = anyTokenTransitions.remove(state);
     if (!removed) {
@@ -160,12 +155,6 @@ public final class StateImpl implements State<StateImpl> {
     }
   }
 
-  /**
-   * Remove the 'empty' transion.
-   * 
-   * @param state
-   *          The target state.
-   */
   public void removeEmptyTransition(final StateImpl state) {
     final boolean removed = emptyTransitions.remove(state);
     if (!removed) {
@@ -173,14 +162,6 @@ public final class StateImpl implements State<StateImpl> {
     }
   }
 
-  /**
-   * Remove the token transition.
-   * 
-   * @param token
-   *          The token.
-   * @param state
-   *          The target state.
-   */
   public void removeTokenTransition(final String token, final StateImpl state) {
     final List<StateImpl> transitions = tokenTransitions.get(token);
     if (transitions == null) {
@@ -199,7 +180,8 @@ public final class StateImpl implements State<StateImpl> {
   }
 
   /**
-   * Get all transitions for the token, including the transitions for the 'any' token.
+   * Get all transitions for the token, including the transitions for the 'any'
+   * token.
    */
   private List<StateImpl> getAllTokenTransitions(final String token) {
     final List<StateImpl> allTokenTransitions = new ArrayList<>();
@@ -214,8 +196,8 @@ public final class StateImpl implements State<StateImpl> {
   }
 
   /**
-   * Start recursive match token by token. Avoid copying the token list by using an index to
-   * indicate the start of the list.
+   * Start recursive match token by token. Avoid copying the token list by using
+   * an index to indicate the start of the list.
    */
   private boolean match(final String[] tokens, final int tokenIndex) {
     // start the visited state list to detect recursion
@@ -223,11 +205,11 @@ public final class StateImpl implements State<StateImpl> {
   }
 
   /**
-   * Recursive match token by token. Avoid copying the token list by using an index to indicate the
-   * start of the list. Maintain the visited state list to detect recursion.
+   * Recursive match token by token. Avoid copying the token list by using an
+   * index to indicate the start of the list. Maintain the visited state list to
+   * detect recursion.
    */
-  private boolean match(final String[] tokens, final int tokenIndex,
-      final ArrayList<StateImpl> visited) {
+  private boolean match(final String[] tokens, final int tokenIndex, final ArrayList<StateImpl> visited) {
 
     // recursion detector
     if (visited.contains(this)) {

@@ -1,0 +1,3 @@
+#!/bin/bash
+temp_file=$(mktemp "$1-XXXXXXXX.svg")
+dot "$1" -Tsvg -o ${temp_file} && firefox ${temp_file} && rm ${temp_file}

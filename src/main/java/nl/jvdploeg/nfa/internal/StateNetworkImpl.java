@@ -1,3 +1,4 @@
+// The author disclaims copyright to this source code.
 package nl.jvdploeg.nfa.internal;
 
 import java.util.ArrayList;
@@ -6,32 +7,25 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import nl.jvdploeg.nfa.State;
-import nl.jvdploeg.nfa.StateNetwork;
+
 import org.apache.commons.lang3.tuple.Pair;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * Network of {@link State}s.
- */
-public class StateNetworkImpl implements StateNetwork<StateImpl> {
+import nl.jvdploeg.nfa.StateNetwork;
+
+/** Network of States. */
+public final class StateNetworkImpl implements StateNetwork<StateImpl> {
 
   private static final Logger LOG = LoggerFactory.getLogger(StateNetworkImpl.class);
 
-  /**
-   * The collection of all {@link State}s.
-   */
+  /** The collection of all States. */
   private final List<StateImpl> network = new ArrayList<>();
 
-  /**
-   * Unmodifiable access to the network.
-   */
+  /** Unmodifiable access to the network. */
   private final List<StateImpl> unmodifiableNetwork = Collections.unmodifiableList(network);
 
-  /**
-   * Token transitions.
-   */
+  /** Token transitions. */
   private final Set<Pair<StateImpl, StateImpl>> tokenTransitions = new HashSet<>();
 
   public StateNetworkImpl() {
@@ -52,12 +46,12 @@ public class StateNetworkImpl implements StateNetwork<StateImpl> {
     network.clear();
     add(entry, network);
     if (LOG.isDebugEnabled()) {
-      LOG.debug("scan {} states", network.size());
+      LOG.debug("scan {} states", Integer.valueOf(network.size()));
     }
   }
 
   /**
-   * Recursively collect the given {@link State} and all reachable {@link State}s.
+   * Recursively collect the given State and all reachable States.
    */
   private void add(final StateImpl entry, final List<StateImpl> all) {
     // add the entry state itself
