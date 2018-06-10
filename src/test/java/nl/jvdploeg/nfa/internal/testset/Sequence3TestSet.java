@@ -5,8 +5,8 @@ import java.util.Arrays;
 
 import org.junit.Assert;
 
+import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.TokenMatcher;
-import nl.jvdploeg.nfa.internal.NfaImpl;
 
 public final class Sequence3TestSet extends AbstractTestSet {
 
@@ -26,7 +26,7 @@ public final class Sequence3TestSet extends AbstractTestSet {
   }
 
   @Override
-  public NfaImpl build() {
+  public Nfa<?> build() {
 
     return getFactory().sequence(Arrays.asList(getFactory().token("foo"), getFactory().token("bar"), getFactory().token("baz")));
   }

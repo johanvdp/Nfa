@@ -5,6 +5,7 @@ import java.io.IOException;
 
 import org.junit.Test;
 
+import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.internal.testset.TestSet;
 import nl.jvdploeg.nfa.internal.testset.TestSets;
 
@@ -14,7 +15,7 @@ public class NfaImplTest {
   public void testTokenMatcher() throws IOException {
 
     for (final TestSet testSet : TestSets.create()) {
-      final NfaImpl nfa = testSet.build();
+      final Nfa<?> nfa = testSet.build();
 
       testSet.assertTokenMatcher(nfa);
     }

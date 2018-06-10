@@ -15,7 +15,7 @@ public class DfaImplTest {
   public void testCreateAndOptimize() throws IOException {
 
     for (final TestSet testSet : TestSets.create()) {
-      final NfaImpl nfa = testSet.build();
+      final NfaImpl nfa = (NfaImpl) testSet.build();
       final DfaImpl dfa = DfaImpl.createUnoptimized(nfa);
       boolean moreOptimal;
       int iteration = 1;
@@ -36,7 +36,7 @@ public class DfaImplTest {
   public void testCreateOptimized() throws IOException {
 
     for (final TestSet testSet : TestSets.create()) {
-      final NfaImpl nfa = testSet.build();
+      final NfaImpl nfa = (NfaImpl) testSet.build();
 
       final DfaImpl dfa = DfaImpl.createOptimized(nfa);
 

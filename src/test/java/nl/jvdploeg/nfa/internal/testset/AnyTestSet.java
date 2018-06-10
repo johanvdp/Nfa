@@ -3,8 +3,8 @@ package nl.jvdploeg.nfa.internal.testset;
 
 import org.junit.Assert;
 
+import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.TokenMatcher;
-import nl.jvdploeg.nfa.internal.NfaImpl;
 
 public final class AnyTestSet extends AbstractTestSet {
 
@@ -20,7 +20,7 @@ public final class AnyTestSet extends AbstractTestSet {
   }
 
   @Override
-  public NfaImpl build() {
+  public Nfa<?> build() {
 
     return getFactory().any();
   }

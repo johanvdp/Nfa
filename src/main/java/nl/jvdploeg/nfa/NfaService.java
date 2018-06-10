@@ -27,7 +27,7 @@ public abstract class NfaService {
   protected NfaService() {
   }
 
-  public abstract NfaFactory<?> createNfaFactory();
+  public abstract <T extends Nfa<?>> NfaFactory<T> createNfaFactory();
 
   public abstract StateNetwork<?> createStateNetwork();
 }

@@ -10,6 +10,7 @@ public final class NfaServiceImpl extends NfaService {
   public NfaServiceImpl() {
   }
 
+  @SuppressWarnings("unchecked")
   @Override
   public NfaFactory<?> createNfaFactory() {
     return new NfaFactoryImpl();

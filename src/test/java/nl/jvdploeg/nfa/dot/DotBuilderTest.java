@@ -6,6 +6,7 @@ import java.io.IOException;
 import org.junit.Assert;
 import org.junit.Test;
 
+import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.dot.expected.Expected;
 import nl.jvdploeg.nfa.internal.DfaImpl;
 import nl.jvdploeg.nfa.internal.NfaImpl;
@@ -18,7 +19,7 @@ public class DotBuilderTest {
   public void generateWriteWithFactory() throws IOException {
 
     for (final TestSet testSet : TestSets.create()) {
-      final NfaImpl nfa = testSet.build();
+      final Nfa<?> nfa = testSet.build();
 
       DotUtils.write(nfa.getEntry(), testSet.getFactory(), String.format("generated/nfa%s.dot", testSet.getClass().getSimpleName()));
     }
@@ -28,7 +29,7 @@ public class DotBuilderTest {
   public void generateWriteWithoutFactory() throws IOException {
 
     for (final TestSet testSet : TestSets.create()) {
-      final NfaImpl nfa = testSet.build();
+      final NfaImpl nfa = (NfaImpl) testSet.build();
       final DfaImpl dfa = DfaImpl.createOptimized(nfa);
 
       DotUtils.write(dfa.getEntry(), String.format("generated/dfa%s.dot", testSet.getClass().getSimpleName()));
@@ -52,7 +53,7 @@ public class DotBuilderTest {
   public void testWriteWithFactory() throws IOException {
 
     for (final TestSet testSet : TestSets.create()) {
-      final NfaImpl nfa = testSet.build();
+      final Nfa<?> nfa = testSet.build();
 
       Assert.assertEquals(Expected.getExpectedNfa(testSet), DotUtils.toDot(nfa.getEntry(), testSet.getFactory()));
     }
@@ -62,7 +63,7 @@ public class DotBuilderTest {
   public void testWriteWithoutFactory() throws IOException {
 
     for (final TestSet testSet : TestSets.create()) {
-      final NfaImpl nfa = testSet.build();
+      final NfaImpl nfa = (NfaImpl) testSet.build();
       final DfaImpl dfa = DfaImpl.createOptimized(nfa);
 
       Assert.assertEquals(Expected.getExpectedDfa(testSet), DotUtils.toDot(dfa.getEntry()));

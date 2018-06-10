@@ -3,8 +3,8 @@ package nl.jvdploeg.nfa.internal.testset;
 
 import org.junit.Assert;
 
+import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.TokenMatcher;
-import nl.jvdploeg.nfa.internal.NfaImpl;
 
 public final class ComboTestSet extends AbstractTestSet {
 
@@ -27,7 +27,7 @@ public final class ComboTestSet extends AbstractTestSet {
   }
 
   @Override
-  public NfaImpl build() {
+  public Nfa<?> build() {
 
     return getFactory().sequence(getFactory().zeroOrMore(getFactory().or(getFactory().token("foo"), getFactory().token("bar"))),
         getFactory().empty());

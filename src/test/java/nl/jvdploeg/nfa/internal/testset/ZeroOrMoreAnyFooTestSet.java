@@ -3,8 +3,8 @@ package nl.jvdploeg.nfa.internal.testset;
 
 import org.junit.Assert;
 
+import nl.jvdploeg.nfa.Nfa;
 import nl.jvdploeg.nfa.TokenMatcher;
-import nl.jvdploeg.nfa.internal.NfaImpl;
 
 public final class ZeroOrMoreAnyFooTestSet extends AbstractTestSet {
 
@@ -22,7 +22,7 @@ public final class ZeroOrMoreAnyFooTestSet extends AbstractTestSet {
   }
 
   @Override
-  public NfaImpl build() {
+  public Nfa<?> build() {
 
     return getFactory().sequence(getFactory().zeroOrMore(getFactory().any()), getFactory().token("foo"));
   }
